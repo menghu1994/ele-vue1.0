@@ -2,15 +2,16 @@
   <div id="app">
     <v-header></v-header>
     <div class="tap">
-      <div class="tap-item">商品</div>
-      <div class="tap-item">评价</div>
-      <div class="tap-item">商家</div>
+      <div class="tap-item"><router-link to="/goods">商品</router-link></div>
+      <div class="tap-item"><router-link to="/review">评价</router-link></div>
+      <div class="tap-item"><router-link to="/sell">商家</router-link></div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import header from './components/header.vue'
+import header from './components/header/header'
 export default {
   name: 'App',
   components:{
