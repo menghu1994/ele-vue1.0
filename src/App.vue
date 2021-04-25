@@ -1,23 +1,34 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <v-header></v-header>
+    <div class="tap">
+      <div class="tap-item">商品</div>
+      <div class="tap-item">评价</div>
+      <div class="tap-item">商家</div>
+    </div>
   </div>
 </template>
 
 <script>
+import header from './components/header.vue'
 export default {
-  name: 'App'
+  name: 'App',
+  components:{
+    'v-header':header
+  }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="stylus" scoped>
+  .tap
+    display flex
+    width 100%
+    font-size 14px
+    line-height 40px
+    height 40px
+    color rgb(77,85,93)
+    .tap-item
+      flex 1
+      text-align center
 </style>
+
