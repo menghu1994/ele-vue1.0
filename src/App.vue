@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-header></v-header>
-    <div class="tap">
+    <div class="tap border-1px">
       <div class="tap-item"><router-link to="/goods">商品</router-link></div>
       <div class="tap-item"><router-link to="/seller">商家</router-link></div>
       <div class="tap-item"><router-link to="/ratings">评价</router-link></div>
@@ -21,8 +21,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import './common/stylus/base.styl'
-
+// @import "./common/stylus/base.styl"
   .tap
     display flex
     width 100%

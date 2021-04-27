@@ -1,10 +1,21 @@
 border-1px($color)
 	position relative
-		&:after
-			display block
-			position absolute
-			content ''
-			width 100%
-			border-bottom 1px solid $color
-			left 0
-			bottom 0
+	&::after
+		display block
+		position absolute
+		content ''
+		width 100%
+		border-bottom 1px solid $color
+		left 0
+		bottom 0
+
+@media screen and (-webkit-min-device-pixel-ratio: 2)
+	.border-1px
+		&::after
+			transform: scaleY(0.5)	
+
+
+@media screen and (-webkit-min-device-pixel-ratio: 3)
+	.border-1px
+		&::after
+			transform: scaleY(0.333)	
