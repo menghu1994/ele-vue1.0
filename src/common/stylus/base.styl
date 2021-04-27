@@ -9,13 +9,23 @@ border-1px($color)
 		left 0
 		bottom 0
 
-@media screen and (-webkit-min-device-pixel-ratio: 2)
+@media screen and (min-device-pixel-ratio: 2)
 	.border-1px
 		&::after
-			transform: scaleY(0.5)	
+			transform scaleY(0.5)	
 
 
-@media screen and (-webkit-min-device-pixel-ratio: 3)
+@media screen and (min-device-pixel-ratio: 3)
 	.border-1px
 		&::after
-			transform: scaleY(0.333)	
+			transform scaleY(0.333)	
+
+bg-img($url)
+	background-image url($url+"@2px.png")
+	@media screen and (min-device-pixel-ratio: 3)
+		background-image url($url+"@3px.png")
+
+body,html
+	font-size 10px
+	color #000
+	font-family: sans-serif

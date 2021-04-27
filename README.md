@@ -128,3 +128,18 @@ new Vue({
   3. 手机端查看(手机和电脑要在同一局域网内)
    - 查询电脑ip地址,命令行ipconfig
    - 将localhost替换为ip地址,复制网址到草料网站生成二维码
+
+  ---
+
+  ### 2021.4.27
+  1. axios 
+   - 安装 `npm install -s axios vue-axios`
+   - 配置
+   ```js
+   import axios from 'axios'
+   import VueAxios from 'vue-axios'
+   Vue.use(VueAxios,axios)
+   ```
+  
+  2. inline-block间距问题
+   - 设置font-size：0;

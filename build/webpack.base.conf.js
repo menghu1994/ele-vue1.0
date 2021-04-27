@@ -32,7 +32,7 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json','.styl',''],
+    extensions: ['.js', '.vue', '.json','.styl'],
     alias: {
       '@': resolve('src'),
       'common': resolve('src/common')
@@ -74,8 +74,9 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      },{ 
-        test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' 
+      },{
+        test: /\.styl$/,
+        loader: "stylus-loader"
       }
     ]
   },
