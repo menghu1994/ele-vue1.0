@@ -143,3 +143,7 @@ new Vue({
   
   2. inline-block间距问题
    - 设置font-size：0;
+
+    ### 2021.4.28
+    1. 样式
+     - sticky footer

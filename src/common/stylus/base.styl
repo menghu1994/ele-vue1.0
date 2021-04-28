@@ -21,11 +21,21 @@ border-1px($color)
 			transform scaleY(0.333)	
 
 bg-img($url)
-	background-image url($url+"@2px.png")
+	background-image url($url+"@2x.png")
 	@media screen and (min-device-pixel-ratio: 3)
-		background-image url($url+"@3px.png")
+		background-image url($url+"@3x.png")
 
 body,html
 	font-size 10px
 	color #000
 	font-family: sans-serif
+
+.clearfix
+	display inline-block
+	&::after
+		content ""
+		height 0
+		line-height 0
+		display block
+		visibility hidden
+		clear both

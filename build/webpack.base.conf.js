@@ -76,7 +76,8 @@ module.exports = {
         }
       },{
         test: /\.styl$/,
-        loader: "stylus-loader"
+        loader: "stylus-loader",
+        include: ['node build/dev-server.js']
       }
     ]
   },
