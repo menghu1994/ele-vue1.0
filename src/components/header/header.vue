@@ -29,19 +29,41 @@
 			<img height="100%" width="100%" :src="seller.avatar" alt="">
 		</div>
 		<!-- 公告细节面板 -->
-		<div class="detail" v-show="detail">
-			<div class="detail-wrapper clearfix">
-				<div class="detail-main">
-					<h1 class="name">{{ seller.name }}</h1>
-					<star :score="seller.score" :size="seller.ratingCount"></star>
-					<p v-if="seller.supports">优惠信息</P>
+		<transition name="fade">
+			<div class="detail" v-show="detail">
+				<div class="detail-wrapper clearfix">
+					<div class="detail-main">
+						<!-- 标题 -->
+						<h1 class="name">{{ seller.name }}</h1>
+						<!-- 评星 -->
+						<star :score="seller.score" :size="48"></star>
+						<!-- 优惠信息 -->
+						<div class="support-wrapper">
+							<div class="line"></div>
+							<h2 class="text">优惠信息</h2>
+							<div class="line"></div>
+						</div>
+						<ul v-if="seller.supports" class="supports">
+							<li v-for="item in seller.supports">
+								<i class="icon" :class="classMap[item.type]"></i>
+								<span class="description">{{ item.description }}</span>
+							</li>
+						</ul>
+						<!-- 商家公告 -->
+						<div class="support-wrapper">
+							<div class="line"></div>
+							<h2 class="text" v-if="seller.supports">商家公告</h2>
+							<div class="line"></div>
+						</div>
+						<p class="bulletin">{{ seller.bulletin }}</p>
+					</div>
 				</div>
-			</div>
-			<!-- 关闭公告面板按钮 -->
-			<div class="detail-close">
-				<i class="icon-close" @click="hideDetail"></i>
-			</div>
-		</div>
+				<!-- 关闭公告面板按钮 -->
+				<div class="detail-close">
+					<i class="icon-close" @click="hideDetail"></i>
+				</div>
+			</div>			
+		</transition>
 	</div>
 </template>
 
@@ -49,7 +71,7 @@
 import star from '@/components/star/star'
 
 export default {
-	name:'head',
+	name:'header',
 	// props:['seller']
 	props:{
 		seller:{
@@ -61,7 +83,8 @@ export default {
 	},
 	data(){
 		return {
-			detail:false
+			detail:false,
+			classMap:['decrease','discount','guarantee','invoice','special']
 		}
 	},
 	methods:{
@@ -78,6 +101,15 @@ export default {
 <style lang="stylus">
 // @import "../../common/stylus/base.styl"
 @import "~common/stylus/base.styl"
+
+.fade-enter-active 
+  transition all .4s ease
+.fade-enter
+  transform translateY(-100%)
+  opacity 0;
+.fade-leave-to
+	transform translateY(0)
+	opacity 1
 
 .header
 	background rgba(7,17,27,0.5)
@@ -193,6 +225,60 @@ export default {
 			text-align center
 			.detail-main
 				padding 64px 36px 64px
+				.name
+					font-size 16px
+					font-weight 700
+					line-height 16px
+				.support-wrapper
+					display flex
+					flex-basis 80%
+					margin 28px auto 24px
+					.line
+						flex 1
+						border-bottom 1px solid rgba(255,255,255,0.2)
+					.text
+						margin 0 12px
+						position relative
+						top 7px
+				.supports
+					font-size 0
+					padding 0 12px
+					li
+						font-size 12px
+						font-weight 200
+						text-align left
+						color white
+						line-height 12px
+						margin-bottom 12px
+						&:last-child
+							margin-bottom 0
+						.icon
+							display inline-block
+							width 16px
+							height 16px
+							background-size 16px 16px
+							background-repeat no-repeat
+							vertical-align top
+							margin-right 6px
+							&.decrease
+								bg-img('decrease_2')
+							&.discount
+								bg-img('discount_2')
+							&.guarantee
+								bg-img('guarantee_2')
+							&.invoice
+								bg-img('invoice_2')								
+							&.special
+								bg-img('special_2')
+						.description
+							line-height 16px
+				.bulletin
+					font-size 12px
+					font-weight 200
+					line-height 24px
+					padding 0 12px
+					text-align left
+					vertical-align top
 		.detail-close
 			// position relative
 			height 32px 

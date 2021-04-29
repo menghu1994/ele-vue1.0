@@ -6,12 +6,12 @@
       <div class="tap-item"><router-link to="/seller">商家</router-link></div>
       <div class="tap-item"><router-link to="/ratings">评价</router-link></div>
     </div>
-    <router-view></router-view>
+    <router-view :seller="this.seller"></router-view>
   </div>
 </template>
 
 <script>
-import head from '@/components/head/head'
+import header from '@/components/header/header'
 export default {
   name: 'App',
   data(){
@@ -20,7 +20,7 @@ export default {
     }
   },
   components:{
-    'v-header':head
+    'v-header':header
   },
   created() {
     this.axios.get('/api/seller').then((Response)=>{

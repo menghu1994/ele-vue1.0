@@ -73,7 +73,7 @@ export default {
 			&.half
 				bg-img('star24_half')
 			&.off
-				bg-img('star24_half')
+				bg-img('star24_off')
 	&.star-36
 		.item-style
 			width 15px
@@ -87,7 +87,7 @@ export default {
 			&.half
 				bg-img('star36_half')
 			&.off
-				bg-img('star36_half')
+				bg-img('star36_off')
 	&.star-48
 		.item-style
 			width 20px
@@ -101,7 +101,7 @@ export default {
 			&.half
 				bg-img('star48_half')
 			&.off
-				bg-img('star48_half')
+				bg-img('star48_off')
 
 	
 </style>

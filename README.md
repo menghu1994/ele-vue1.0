@@ -131,19 +131,26 @@ new Vue({
 
   ---
 
-  ### 2021.4.27
-  1. axios 
-   - 安装 `npm install -s axios vue-axios`
-   - 配置
-   ```js
-   import axios from 'axios'
-   import VueAxios from 'vue-axios'
-   Vue.use(VueAxios,axios)
-   ```
-  
-  2. inline-block间距问题
-   - 设置font-size：0;
+### 2021.4.27
+1. axios 
+ - 安装 `npm install -s axios vue-axios`
+ - 配置
+ ```js
+ import axios from 'axios'
+ import VueAxios from 'vue-axios'
+ Vue.use(VueAxios,axios)
+ ```
 
-    ### 2021.4.28
-    1. 样式
-     - sticky footer
+2. inline-block间距问题
+ - 设置font-size：0;
+
+### 2021.4.28
+1. 样式
+  - sticky footer
+2. 评星系统...
+
+### 2021.4.29
+1. `backdrop-filter`元素背景模糊
+
+
+<!-- 五一期间回老家 -->
