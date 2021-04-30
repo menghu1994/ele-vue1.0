@@ -1,8 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import goods from '@/components/goods/goods'
-import seller from '@/components/seller/seller'
-import ratings from '@/components/ratings/ratings'
 
 Vue.use(Router)
 
@@ -11,15 +8,15 @@ export default new Router({
     {
       path: '/goods',
       name: 'goods',
-      component: goods
+      component: () => import('@/components/goods/goods')
     }, {
       path: '/seller',
       name: 'seller',
-      component: seller
+      component:  () => import('@/components/seller/seller')
     }, {
       path: '/ratings',
       name: 'ratings',
-      component: ratings
+      component: () => import('@/components/ratings/ratings')
     }, {
       path: '*',
       redirect: '/goods'  //重定向,初始加载

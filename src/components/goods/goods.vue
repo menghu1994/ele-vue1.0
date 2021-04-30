@@ -48,7 +48,11 @@ export default {
         width 80px
         background #f3f5f7
         .goods-list
+            width 56px
+            height 54px
             padding 12px
+            line-height 14px
+            display table
             .icon
                 display inline-block
                 vertical-align top
@@ -60,7 +64,7 @@ export default {
                 font-size 12px
                 color rgb(7,17,27)
                 font-weight 200
-                line-height 14px
+                
     .food-wrapper
         flex 1
 </style>
