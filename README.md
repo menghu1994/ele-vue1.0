@@ -154,3 +154,8 @@ new Vue({
 
 
 <!-- 五一期间回老家 -->
+### 2021.5.6
+1. 多行文本垂直居中
+ - display:table
+ - display:table-cell vertical-aglin:middle
+2. 移动端固定高度实现内滚动
