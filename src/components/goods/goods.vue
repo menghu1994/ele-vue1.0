@@ -1,13 +1,14 @@
 <template>
     <div class="goods">
 
-            <ul class="menu-wrapper">
+            <ul class="menu-wrapper"  ref="menuWrapper">
                 <li v-for="item in this.goods" class="goods-list border-1px" >
                     <i class="icon" v-if="item.type > 1" :class="classMap[item.type]"></i><span class="goods-name">{{ item.name }}</span>
                 </li>
             </ul>
 
-        <div class="food-wrapper">
+
+        <div class="food-wrapper" ref="foodWrapper" >
             <ul  v-for="item in goods" class="food-list">
                 <li>
                     <h2 class="name">{{item.name}}</h2>
@@ -34,6 +35,8 @@
 
 
 <script>
+import BScroll from 'better-scroll'
+
 export default {
     name:'goods',
     props:['seller'],
@@ -47,9 +50,18 @@ export default {
         this.axios.get('/api/goods').then( (Response) => {
             if( Response.data.errno === 0){
                 this.goods = Response.data.data
-                console.log(this.goods)
+                this.$nextTick(() => {
+                    this._initScroll()
+                })
+                
             }
         })
+    },
+    methods:{
+        _initScroll(){
+            this.menuScroll = new BScroll(this.$refs.menuWrapper,{movable: true});
+            this.foodsScroll = new BScroll(this.$refs.foodWrapper,{movable: true});
+        }
     }
 }
 </script>

@@ -32,13 +32,11 @@ npm run build --report
 3. mock本地假数据
  - 在npm run dev编译入口文件 `webpack.dev.conf.js`中配置
  ```js
- 	let appData = require('../data.json')
-	let seller = appData.seller
-	let goods = appData.goods
-	let ratings = appData.ratings
-
-	app.use('api',apiRoutes)
-
+let appData = require('../data.json')
+let seller = appData.seller
+let goods = appData.goods
+let ratings = appData.ratings
+app.use('api',apiRoutes)
  ```
   - 在devServer下增加before方法引用
 	```js
@@ -159,3 +157,15 @@ new Vue({
  - display:table
  - display:table-cell vertical-aglin:middle
 2. 移动端固定高度实现内滚动
+
+### 2021.5.7
+1. [better-scroll](https://github.com/ustbhuangyi/better-scroll) 插件实现屏内滚动
+ - 安装 `npm install better-scroll -S`
+ - 引用 `import BScroll from 'better-scroll'`
+ - 使用 (操作dom)
+  + ```js
+      let bs = new BScroll('.wrapper', {
+      movable: true,
+      zoom: true
+      })
+    ```
