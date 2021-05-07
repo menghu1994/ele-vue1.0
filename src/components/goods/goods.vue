@@ -1,42 +1,43 @@
 <template>
     <div class="goods">
-
-        <ul class="menu-wrapper"  ref="menuWrapper">
-            <li v-for="item in this.goods" class="goods-list border-1px" >
-                <i class="icon" v-if="item.type > 1" :class="classMap[item.type]"></i><span class="goods-name">{{ item.name }}</span>
-            </li>
-        </ul>
-        
-        
-            <div class="food-wrapper" ref="foodWrapper" >
-                <ul  v-for="item in goods" class="food-list">
-                    <li>
-                        <h2 class="name">{{item.name}}</h2>
-                        <ul class="detail">
-                            <li v-for="food in item.foods" class="detail-item border-1px">
-                                <div class="image">
-                                    <img :src="food.image" alt="">
-                                </div>
-                                <div class="food">
-                                    <h3 class="title">{{ food.name }}</h3>
-                                    <p class="description">{{ food.description }}</p>
-                                    <span class="count">月售{{food.sellCount}}份</span><span class="rating">好评率{{food.rating}}%</span>
-                                    <span class="price">{{ food.price }}</span>
-                                    <span class="oldprice" v-if="food.oldprice">{{ food.oldprice }}</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
+        <div class="menu-wrapper" ref="menuWrapper">
+            <ul>
+                <li v-for="item,index in this.goods" class="goods-list border-1px" :class="{current: curIndex===index}" @click="curPos(index)">
+                    <i class="icon" v-if="item.type > 0" :class="classMap[item.type]"></i><span class="goods-name">{{ item.name }}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="food-wrapper" ref="foodWrapper" >
+               <ul>
+                   <li v-for="item in goods" class="food-list food-list-hook">
+                       <h2 class="name">{{item.name}}</h2>
+                       <ul class="detail">
+                           <li v-for="food in item.foods" class="detail-item border-1px">
+                               <div class="image">
+                                   <img :src="food.image" alt="">
+                               </div>
+                               <div class="food">
+                                   <h3 class="title">{{ food.name }}</h3>
+                                   <p class="description">{{ food.description }}</p>
+                                   <div>
+                                   <span class="count">月售{{food.sellCount}}份</span><span class="rating">好评率{{food.rating}}%</span></div>
+                                   <span class="price">{{ food.price }}</span>
+                                   <span class="oldprice" v-if="food.oldPrice">￥{{ food.oldPrice }}</span>
+                               </div>
+                           </li>
+                       </ul>
+                   </li>
                 </ul>
-                
-            </div>
-       
+
+        </div>
+        <shopcart :goods="goods"></shopcart>
     </div>
 </template>
 
 
 <script>
 import BScroll from 'better-scroll'
+import shopcart from "@/components/shopcart/shopcart"
 
 export default {
     name:'goods',
@@ -44,24 +45,60 @@ export default {
     data(){
         return {
             goods:[],
-            classMap:['decrease','discount','guarantee','invoice','special']
+            classMap:['decrease','discount','guarantee','invoice','special'],
+            heightList:[],
+            scrollY:0
         }
+    },
+    components:{
+        shopcart
     },
     created() {
         this.axios.get('/api/goods').then( (Response) => {
             if( Response.data.errno === 0){
                 this.goods = Response.data.data
                 this.$nextTick(() => {
-                    this._initScroll()
+                    this._initScroll();
+                    this._calculateHeight();
                 })
                 
             }
         })
     },
+    computed:{
+        curIndex(){
+            // console.log(this.heightList)
+            for(let i=0;i<this.heightList.length;i++){
+                let height1 = this.heightList[i];
+                let height2 = this.heightList[i+1];
+                if(!height2 ||(this.scrollY>=height1 && this.scrollY < height2)){
+                    return i
+                }
+            }
+            return 0
+        }
+    },
     methods:{
         _initScroll(){
-            this.menuScroll = new BScroll(this.$refs.menuWrapper,{movable: true});
-            this.foodsScroll = new BScroll(this.$refs.foodWrapper,{movable: true});
+            this.menuScroll = new BScroll(this.$refs.menuWrapper,{movable: true,click:true});
+            this.foodsScroll = new BScroll(this.$refs.foodWrapper,{movable: true,probeType:3});
+            this.foodsScroll.on('scroll',(pos) => {
+                this.scrollY = Math.abs(Math.round(pos.y))
+            })
+        },
+        _calculateHeight(){
+            let curFood = this.$refs.foodWrapper.getElementsByClassName('food-list-hook');
+            let height = 0;
+            this.heightList.push(height)
+            for(let i=0;i<curFood.length;i++){
+                height += curFood[i].clientHeight;
+                this.heightList.push(height)
+            }
+        },
+        curPos(i){
+            // this.scrollY = this.heightList[i];
+            let el = this.$refs.foodWrapper.getElementsByClassName('food-list-hook')[i];
+            this.foodsScroll.scrollToElement(el,300);
         }
     }
 }
@@ -88,6 +125,14 @@ export default {
             line-height 14px
             display table
             padding 0 12px
+            &.current
+                background white
+                position relative
+                margin-top -1px
+                z-index 22
+                .goods-name
+                    font-weight 700
+                    border-none()
             .icon
                 display inline-block
                 vertical-align top
@@ -145,6 +190,8 @@ export default {
                         vertical-align top
                         margin-left 10px
                         font-size 10px
+                        width 70%
+                        word-wrap break-word
                         color rgb(147,153,159)
                         .title
                             font-size 14px
@@ -153,11 +200,11 @@ export default {
                             margin 2px 0 8px
                         .description
                             margin-bottom 8px
-                            line-height 10px
+                            line-height 12px
                         .rating
                             margin-left 12px
                         .price
-                            display block
+                            display inline-block
                             font-size 14px
                             color #f01414
                             line-height 24px
@@ -167,7 +214,8 @@ export default {
                                 content "￥"
                                 font-size 10px
                         .oldprice
-                            display block
+                            display inline-block
                             font-weight 700
                             line-height 24px
+                            text-decoration line-through
 </style>
