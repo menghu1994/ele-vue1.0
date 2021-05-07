@@ -1,35 +1,36 @@
 <template>
     <div class="goods">
 
-            <ul class="menu-wrapper"  ref="menuWrapper">
-                <li v-for="item in this.goods" class="goods-list border-1px" >
-                    <i class="icon" v-if="item.type > 1" :class="classMap[item.type]"></i><span class="goods-name">{{ item.name }}</span>
-                </li>
-            </ul>
-
-
-        <div class="food-wrapper" ref="foodWrapper" >
-            <ul  v-for="item in goods" class="food-list">
-                <li>
-                    <h2 class="name">{{item.name}}</h2>
-                    <ul class="detail">
-                        <li v-for="food in item.foods" class="detail-item border-1px">
-                            <div class="image">
-                                <img :src="food.image" alt="">
-                            </div>
-                            <div class="food">
-                                <h3 class="title">{{ food.name }}</h3>
-                                <p class="description">{{ food.description }}</p>
-                                <span class="count">月售{{food.sellCount}}份</span><span class="rating">好评率{{food.rating}}%</span>
-                                <span class="price">{{ food.price }}</span>
-                                <span class="oldprice" v-if="food.oldprice">{{ food.oldprice }}</span>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            
-        </div>
+        <ul class="menu-wrapper"  ref="menuWrapper">
+            <li v-for="item in this.goods" class="goods-list border-1px" >
+                <i class="icon" v-if="item.type > 1" :class="classMap[item.type]"></i><span class="goods-name">{{ item.name }}</span>
+            </li>
+        </ul>
+        
+        
+            <div class="food-wrapper" ref="foodWrapper" >
+                <ul  v-for="item in goods" class="food-list">
+                    <li>
+                        <h2 class="name">{{item.name}}</h2>
+                        <ul class="detail">
+                            <li v-for="food in item.foods" class="detail-item border-1px">
+                                <div class="image">
+                                    <img :src="food.image" alt="">
+                                </div>
+                                <div class="food">
+                                    <h3 class="title">{{ food.name }}</h3>
+                                    <p class="description">{{ food.description }}</p>
+                                    <span class="count">月售{{food.sellCount}}份</span><span class="rating">好评率{{food.rating}}%</span>
+                                    <span class="price">{{ food.price }}</span>
+                                    <span class="oldprice" v-if="food.oldprice">{{ food.oldprice }}</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                
+            </div>
+       
     </div>
 </template>
 
