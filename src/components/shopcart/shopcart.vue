@@ -5,10 +5,10 @@
 				<div class="cart">
 					<i class="icon-shopping_cart"></i>
 				</div>
-				<div class="price">￥0</div>
-				<div class="desc">另需配送费 元</div>
+				<div class="price">￥{{totalPrice}}</div>
+				<div class="desc">另需配送费{{deliveryPrice}}元</div>
 			</div>
-			<div class="cart-right">起送</div>
+			<div class="cart-right">{{minPrice}}起送</div>
 		</div>
 	</div>
 </template>
@@ -16,10 +16,45 @@
 <script>
 export default {
 	name:'shopcart',
-	props:['goods'],
+	props:{
+		selectFoods:{
+			type:Array,
+			default(){
+				return [
+					{name:'lianzi',
+						count:2,
+						price:10}
+				]
+			}
+		},
+		minPrice:{
+			type:Number,
+			default:0
+		},
+		deliveryPrice:{
+			type:Number,
+			default:0
+		}
+	},
 	data(){
 		return{
-
+			
+		}
+	},
+	computed:{
+		totalPrice(){
+			let total=0;
+			this.selectFoods.forEach((food) => {
+				total += food.price * food.count
+			});
+			return total
+		},
+		totalCount(){
+			let total=0;
+			this.selectFoods.forEach((food) => {
+				total += food.count
+			});
+			return total
 		}
 	}
 }

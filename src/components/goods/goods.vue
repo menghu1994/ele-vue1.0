@@ -3,7 +3,9 @@
         <div class="menu-wrapper" ref="menuWrapper">
             <ul>
                 <li v-for="item,index in this.goods" class="goods-list border-1px" :class="{current: curIndex===index}" @click="curPos(index)">
-                    <i class="icon" v-if="item.type > 0" :class="classMap[item.type]"></i><span class="goods-name">{{ item.name }}</span>
+                    
+                     <i class="icon" v-if="item.type > 0" :class="classMap[item.type]"></i><span class="goods-name">{{ item.name }}</span>
+                    
                 </li>
             </ul>
         </div>
@@ -30,7 +32,7 @@
                 </ul>
 
         </div>
-        <shopcart :goods="goods"></shopcart>
+        <shopcart :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice"></shopcart>
     </div>
 </template>
 

@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <v-header :seller="seller"></v-header>
+    <v-head :seller="seller"></v-head>
     <div class="tap border-1px">
       <div class="tap-item"><router-link to="/goods">商品</router-link></div>
-      <div class="tap-item"><router-link to="/seller">商家</router-link></div>
       <div class="tap-item"><router-link to="/ratings">评价</router-link></div>
+      <div class="tap-item"><router-link to="/seller">商家</router-link></div>
     </div>
     <router-view :seller="this.seller"></router-view>
   </div>
@@ -20,7 +20,7 @@ export default {
     }
   },
   components:{
-    'v-header':header
+    'v-head':header
   },
   created() {
     this.axios.get('/api/seller').then((Response)=>{
@@ -42,6 +42,7 @@ export default {
     height 40px
     color rgb(77,85,93)
     border-1px(rgba(7,17,27,0.1))
+    z-index 100
     .tap-item
       flex 1
       text-align center

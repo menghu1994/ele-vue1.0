@@ -1,12 +1,16 @@
 <template>
-    <div>ratings</div>
+    <comment />
 </template>
 
 
 <script>
-export default {
-    name:'ratings'
+import comment from '@/components/comments/comments'
 
+export default {
+    name:'ratings',
+    components:{
+        comment
+    }
 }
 </script>
 
