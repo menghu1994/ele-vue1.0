@@ -8,7 +8,7 @@
 				<div class="price">￥{{totalPrice}}</div>
 				<div class="desc">另需配送费{{deliveryPrice}}元</div>
 			</div>
-			<div class="cart-right">{{minPrice}}起送</div>
+			<div class="cart-right" :class="pay">{{payDesc}}</div>
 		</div>
 	</div>
 </template>
@@ -22,14 +22,14 @@ export default {
 			default(){
 				return [
 					{name:'lianzi',
-						count:2,
+						count:3,
 						price:10}
 				]
 			}
 		},
 		minPrice:{
 			type:Number,
-			default:0
+			default:20
 		},
 		deliveryPrice:{
 			type:Number,
@@ -55,6 +55,21 @@ export default {
 				total += food.count
 			});
 			return total
+		},
+		payDesc(){
+			let diff = this.minPrice - this.totalPrice 
+			if(this.totalPrice == 0){
+				return `${this.minPrice}起送`
+			}else if(this.totalPrice >= this.minPrice){
+				return "结算"
+			}else if(diff>0){
+				return `还差${diff}元起送`
+			}
+		},
+		pay(){
+			if(this.totalPrice >= this.minPrice){
+				return 'pay'
+			}
 		}
 	}
 }
@@ -109,9 +124,12 @@ export default {
 				margin-left 12px
 		.cart-right
 				flex 0 0 105px
-				font-size 16px
+				font-size 14px
 				font-weight 700
 				line-height 48px
 				text-align center 
 				background-color rgb(43,51,59)
+				&.pay
+					background #00b43c
+					color #fff
 </style>
