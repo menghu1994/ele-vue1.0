@@ -1,14 +1,16 @@
 <template>
     <div class="goods">
+        <!-- 商品左侧菜单栏 -->
         <div class="menu-wrapper" ref="menuWrapper">
             <ul>
                 <li v-for="item,index in this.goods" class="goods-list border-1px" :class="{current: curIndex===index}" @click="curPos(index)">
                     
-                     <i class="icon" v-if="item.type > 0" :class="classMap[item.type]"></i><span class="goods-name">{{ item.name }}</span>
+                     <span class="goods-name"><i class="icon" v-if="item.type > 0" :class="classMap[item.type]"></i>{{ item.name }}</span>
                     
                 </li>
             </ul>
         </div>
+        <!-- 商品右侧食物列表 -->
         <div class="food-wrapper" ref="foodWrapper" >
                <ul>
                    <li v-for="item in goods" class="food-list food-list-hook">
@@ -26,12 +28,17 @@
                                    <span class="price">{{ food.price }}</span>
                                    <span class="oldprice" v-if="food.oldPrice">￥{{ food.oldPrice }}</span>
                                </div>
+                               <!-- 购买数量组件 -->
+                               <div class="cartcontrol">
+                                   <cartcontrol :food="food"></cartcontrol>
+                               </div>
                            </li>
                        </ul>
                    </li>
                 </ul>
 
         </div>
+        <!-- 购物车组件 -->
         <shopcart :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice"></shopcart>
     </div>
 </template>
@@ -40,6 +47,7 @@
 <script>
 import BScroll from 'better-scroll'
 import shopcart from "@/components/shopcart/shopcart"
+import cartcontrol from "@/components/cartcontrol/cartcontrol"
 
 export default {
     name:'goods',
@@ -53,7 +61,7 @@ export default {
         }
     },
     components:{
-        shopcart
+        shopcart,cartcontrol
     },
     created() {
         this.axios.get('/api/goods').then( (Response) => {
@@ -78,12 +86,16 @@ export default {
                 }
             }
             return 0
+        },
+        cartFood(){
+            let foods = [];
+
         }
     },
     methods:{
         _initScroll(){
             this.menuScroll = new BScroll(this.$refs.menuWrapper,{movable: true,click:true});
-            this.foodsScroll = new BScroll(this.$refs.foodWrapper,{movable: true,probeType:3});
+            this.foodsScroll = new BScroll(this.$refs.foodWrapper,{movable: true,click:true,probeType:3});
             this.foodsScroll.on('scroll',(pos) => {
                 this.scrollY = Math.abs(Math.round(pos.y))
             })
@@ -220,4 +232,8 @@ export default {
                             font-weight 700
                             line-height 24px
                             text-decoration line-through
+                    .cartcontrol
+                        position absolute 
+                        right 18px
+                        bottom 10px
 </style>

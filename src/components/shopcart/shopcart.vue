@@ -2,10 +2,11 @@
 	<div class="shopcart">
 		<div class="content">
 			<div class="cart-left">
-				<div class="cart">
+				<div class="cart" :class="{'highLight': totalCount>0}">
 					<i class="icon-shopping_cart"></i>
+					<div class="number" v-show="totalCount>0">{{ totalCount }}</div>
 				</div>
-				<div class="price">￥{{totalPrice}}</div>
+				<div class="price" :class="{'highLight': totalCount>0}">￥{{totalPrice}}</div>
 				<div class="desc">另需配送费{{deliveryPrice}}元</div>
 			</div>
 			<div class="cart-right" :class="pay">{{payDesc}}</div>
@@ -22,7 +23,7 @@ export default {
 			default(){
 				return [
 					{name:'lianzi',
-						count:3,
+						count:1,
 						price:10}
 				]
 			}
@@ -103,9 +104,25 @@ export default {
 				text-align center
 				background-color rgb(43,52,66)
 				z-index 66
+				&.highLight
+					background rgb(0,160,220)
+					color white
 				.icon-shopping_cart
 					line-height 48px
 					font-size 24px
+				.number
+					position absolute
+					top -4px
+					right -4px
+					width 24px
+					height 16px
+					line-height 16px
+					border-radius 16px
+					text-align center
+					color white
+					font-size 9px
+					background-color rgb(240,20,20)
+					box-shadow 0 4px 8px rgba(0,0,0,0.4)
 			.price
 				display inline-block
 				vertical-align top
@@ -115,6 +132,9 @@ export default {
 				line-height 24px
 				box-sizing border-box
 				border-right 1px solid rgba(255,255,255,0.1)
+				font-weight 700
+				&.highLight
+					color white
 			.desc
 				display inline-block
 				vertical-align top
