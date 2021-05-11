@@ -38,8 +38,8 @@
                 </ul>
 
         </div>
-        <!-- 购物车组件 -->
-        <shopcart :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice"></shopcart>
+        <!-- 购物车结算组件 -->
+        <shopcart :select-foods="selectFoods" :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice"></shopcart>
     </div>
 </template>
 
@@ -85,11 +85,20 @@ export default {
                     return i
                 }
             }
+            console.log('test')
             return 0
         },
-        cartFood(){
+        selectFoods(){
             let foods = [];
-
+            this.goods.forEach( (good) => {
+                good.foods.forEach( (food) => {
+                    if(food.number){
+                        foods.push(food)
+                    }
+                } )
+            })
+            console.log(12)
+            return foods
         }
     },
     methods:{

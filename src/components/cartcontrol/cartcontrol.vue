@@ -1,6 +1,8 @@
 <template>
 	<div class="cart">
-		<div class="cart-decrease icon-remove_circle_outline" v-show="food.number > 0" @click="decreaseNumber"></div>
+		<transition name="cart-decrease">
+				<div class="cart-decrease icon-remove_circle_outline" v-show="food.number > 0" @click="decreaseNumber"></div>
+		</transition>
 		<div class="cart-num" v-show="food.number > 0">{{ food.number }}</div>
 		<div class="cart-add icon-add_circle" @click="addNumber"></div>
 	</div>
@@ -32,6 +34,14 @@ export default {
 </script>
 
 <style lang="stylus" scope>
+
+.cart-decrease-enter-active, .cart-decrease-leave-active {
+  transition all .2s linear
+}
+.cart-decrease-enter, .cart-decrease-leave-to {
+  opacity 0
+	transform translateX(24px) rotate(180deg)
+}
 .cart
 	font-size 0 
 	.cart-decrease,.cart-add

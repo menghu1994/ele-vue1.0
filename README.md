@@ -177,3 +177,7 @@ new Vue({
 
 ### 2021.5.10
 1. `vue.set()` 动态更改对象的属性无法触发响应式,改为vue接口
+> Q. 绝对定位中的绝对定位元素下的display:inline-block元素不显示在同一行
+
+### 2021.5.11
+> Q. goods商品组件中，向子组件shopcart传值selectFoods，为什么控制台会运行两次
