@@ -229,6 +229,7 @@ export default {
 					font-size 16px
 					font-weight 700
 					line-height 16px
+					margin-bottom 12px
 				.support-wrapper
 					display flex
 					flex-basis 80%

@@ -1,6 +1,6 @@
 <template>
 	<div class="shopcart">
-		<div class="content">
+		<div class="content" @click="cartShow=!cartShow">
 			<div class="cart-left">
 				<div class="cart" :class="{'highLight': totalCount>0}">
 					<i class="icon-shopping_cart"></i>
@@ -11,10 +11,36 @@
 			</div>
 			<div class="cart-right" :class="pay">{{payDesc}}</div>
 		</div>
+		<!-- 购物车小球 -->
+		<transition name="cot-ani">
+			<div class="cot" v-show="totalPrice > 0"></div>
+		</transition>
+		<!-- 购物车详情页 -->
+		<div class="cart-detail" v-show="cartShow">
+			<div class="detail-header border-1px">
+				<h2 class="title">购物车</h2>
+				<span class="empty">清空</span>
+			</div>
+			<div class="detail-content">
+				<ul>
+					<li v-for="foods in selectFoods" class="food-list border-1px">
+						<div class="left">
+							<h3 class="name">{{foods.name}}</h3>
+						</div>
+						<div class="right">
+							<span class="price">{{foods.price}}</span>
+							<!-- <cartcontrol /> -->
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
+import cartcontrol from '@/components/cartcontrol/cartcontrol'
+
 export default {
 	name:'shopcart',
 	props:{
@@ -39,8 +65,11 @@ export default {
 	},
 	data(){
 		return{
-			
+			cartShow:false
 		}
+	},
+	components:{
+		cartcontrol
 	},
 	computed:{
 		totalPrice(){
@@ -77,6 +106,7 @@ export default {
 </script>
 
 <style lang="stylus">
+@import "~common/stylus/base.styl"
 
 .shopcart
 	position fixed
@@ -152,4 +182,59 @@ export default {
 				&.pay
 					background #00b43c
 					color #fff
+	.cot
+		width 12px
+		height 12px
+		border-radius 50%
+		background rgb(147,153,159)
+	.cart-detail
+		position absolute
+		bottom 48px
+		left 0
+		width 100%
+		font-size 14px
+		max-height 258px
+		color rgb(7,17,27)
+		overflow auto
+		.detail-header
+			display flex
+			justify-content space-between
+			position sticky 
+			top 0
+			height 40px
+			line-height 40px
+			padding 0 18px
+			background-color #f3f5f7
+			border-1px(rgba(7,17,27,0.1))
+			z-index 20
+			.title
+				font-size 14px
+				font-weight normal
+			.empty
+				color rgb(0,160,220)
+	.detail-content
+		background-color #fff
+		padding 0 16px
+		.food-list
+			height 48px
+			line-height 48px
+			display flex
+			justify-content space-between
+			width 100%
+			border-1px(rgba(7,17,27,0.1))
+			.left
+				font-size 14px
+				line-height 48px
+				font-weight 400
+				color rgb(7,17,27)
+				padding 0 12px
+			.right
+				.price
+					font-weight 700
+					color rgb(240,20,20)
+					line-height 24px
+					margin-right 12px
+					&::before
+						content '￥'
+						font-size 10px
 </style>

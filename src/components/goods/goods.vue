@@ -30,7 +30,7 @@
                                </div>
                                <!-- 购买数量组件 -->
                                <div class="cartcontrol">
-                                   <cartcontrol :food="food"></cartcontrol>
+                                   <cartcontrol :food="food" ></cartcontrol>
                                </div>
                            </li>
                        </ul>
@@ -85,7 +85,7 @@ export default {
                     return i
                 }
             }
-            console.log('test')
+            // console.log('test')
             return 0
         },
         selectFoods(){
@@ -97,7 +97,7 @@ export default {
                     }
                 } )
             })
-            console.log(12)
+            // console.log(12)
             return foods
         }
     },

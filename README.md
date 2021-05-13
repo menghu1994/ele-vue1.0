@@ -181,3 +181,7 @@ new Vue({
 
 ### 2021.5.11
 > Q. goods商品组件中，向子组件shopcart传值selectFoods，为什么控制台会运行两次
+
+
+### 2021.5.13
+1. Element.getBoundingClientRect() 返回元素的大小及其相对于视口的位置

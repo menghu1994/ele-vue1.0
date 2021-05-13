@@ -5,6 +5,7 @@
 		</transition>
 		<div class="cart-num" v-show="food.number > 0">{{ food.number }}</div>
 		<div class="cart-add icon-add_circle" @click="addNumber"></div>
+
 	</div>
 </template>
 
@@ -19,9 +20,10 @@ export default {
 		}
 	},
 	methods:{
-		addNumber(){
+		addNumber(e){
 			if(!this.food.number){
 				Vue.set(this.food,'number',1)
+				// console.log(e.clientX)
 			}else{
 				this.food.number ++
 			}
@@ -58,4 +60,5 @@ export default {
 		color rgb(147,153,159)
 		line-height 24px
 		margin 0 6px
+
 </style>
