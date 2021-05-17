@@ -16,7 +16,7 @@
 			<div class="cot" v-show="totalPrice > 0"></div>
 		</transition>
 		<!-- 购物车详情页 -->
-		<div class="cart-detail" v-show="showCart">
+		<div class="cart-detail" v-show="!fold">
 			<div class="detail-header border-1px">
 				<h2 class="title">购物车</h2>
 				<span class="empty" @click="clearCart">清空</span>
@@ -104,18 +104,22 @@ export default {
 			}
 		},
 		showCart(){
-			// if(!this.selectFoods.length){
-			// 	this.fold = true
-			// 	return false
-			// }
-			// this.fold = false
+			if(this.selectFoods.length > 0){
+				this.fold = true
+				return this.fold
+			}
+			this.fold = false
+			return this.fold
 		}
 	},
 	methods:{
 		clearCart(){
 			this.selectFoods.forEach( (food) => {
-				food.number = []
+				food.number = ''
 			})
+			// console.log(this.selectFoods)
+			this.selectFoods.length = 0
+			this.fold = true
 		}
 	}
 }

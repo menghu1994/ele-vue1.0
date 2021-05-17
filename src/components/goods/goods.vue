@@ -16,11 +16,11 @@
                    <li v-for="item in goods" class="food-list food-list-hook">
                        <h2 class="name">{{item.name}}</h2>
                        <ul class="detail">
-                           <li v-for="food in item.foods" class="detail-item border-1px">
+                           <li v-for="food in item.foods" class="detail-item border-1px" @click="showFoods(food)">
                                <div class="image">
                                    <img :src="food.image" alt="">
                                </div>
-                               <div class="food">
+                               <div class="food-d">
                                    <h3 class="title">{{ food.name }}</h3>
                                    <p class="description">{{ food.description }}</p>
                                    <div>
@@ -33,13 +33,17 @@
                                    <cartcontrol :food="food" ></cartcontrol>
                                </div>
                            </li>
+                           
                        </ul>
                    </li>
                 </ul>
-
         </div>
         <!-- 购物车结算组件 -->
         <shopcart :select-foods="selectFoods" :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice"></shopcart>
+        <!-- 商品详细信息 -->
+        <transition name="food-detail">
+            <food ref="foodDetail" :food="selectedFood" />
+        </transition>
     </div>
 </template>
 
@@ -48,6 +52,7 @@
 import BScroll from 'better-scroll'
 import shopcart from "@/components/shopcart/shopcart"
 import cartcontrol from "@/components/cartcontrol/cartcontrol"
+import food from "@/components/food/food"
 
 export default {
     name:'goods',
@@ -57,11 +62,12 @@ export default {
             goods:[],
             classMap:['decrease','discount','guarantee','invoice','special'],
             heightList:[],
-            scrollY:0
+            scrollY:0,
+            selectedFood:[]
         }
     },
     components:{
-        shopcart,cartcontrol
+        shopcart,cartcontrol,food
     },
     created() {
         this.axios.get('/api/goods').then( (Response) => {
@@ -122,6 +128,11 @@ export default {
             // this.scrollY = this.heightList[i];
             let el = this.$refs.foodWrapper.getElementsByClassName('food-list-hook')[i];
             this.foodsScroll.scrollToElement(el,300);
+        },
+        showFoods(food){
+            this.selectedFood = food
+            this.$refs.foodDetail.showFood()
+            // console.log(this.selectFoods)
         }
     }
 }
@@ -131,6 +142,11 @@ export default {
 <style lang="stylus" scoped>
 @import "~common/stylus/base.styl"
 
+.food-detail-enter, .food-detail-leave-to
+    transform translateY(100%)
+    opacity 0.3
+.food-detail-enter-to, .food-detail-leave
+    
 .goods
     display flex 
     width 100%
@@ -208,7 +224,7 @@ export default {
                             width 60px
                             height 60px
                             border-radius 2px
-                    .food
+                    .food-d
                         display inline-block
                         vertical-align top
                         margin-left 10px
