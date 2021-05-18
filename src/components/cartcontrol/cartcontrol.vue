@@ -16,7 +16,7 @@ export default {
 	name:'carcontrol',
 	props:{
 		food:{
-			type:Object
+			type:[Object,Array]
 		}
 	},
 	methods:{

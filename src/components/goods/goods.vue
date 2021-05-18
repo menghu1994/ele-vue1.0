@@ -33,7 +33,6 @@
                                    <cartcontrol :food="food" ></cartcontrol>
                                </div>
                            </li>
-                           
                        </ul>
                    </li>
                 </ul>

@@ -8,11 +8,11 @@
 						<span>{{}}</span>
 					</div>
 					<div class="satisfied">
-						<span>推荐</span>
+						<span>{{rating.goodComment}}</span>
 						<span>{{}}</span>
 					</div>
 					<div class="dissatisfied">
-						<span>吐槽</span>
+						<span>{{rating.badComment}}</span>
 						<span>{{}}</span>
 					</div>
 				</div>
@@ -29,6 +29,7 @@
 
 export default {
 		name:'comment',
+		props:['rating'],
 		data(){
 			return {
 				ratings:[],

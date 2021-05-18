@@ -135,6 +135,7 @@ export default {
 	width 100%
 	height 48px
 	background-color #141d27
+	z-index 105
 	.content
 		display flex
 		color rgba(255,255,255,0.4)

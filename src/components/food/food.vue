@@ -2,7 +2,7 @@
     <div class="foode"  v-show="show">
         <div class="avatar">
             <img class="avat-img" :src="food.image" >
-            <i class="icon-arrow_lift"></i>
+            <i class="icon-arrow_lift" @click="hideFood"></i>
         </div>
         <div class="food-detail">
             <h3 class="title">{{ food.name }}</h3>
@@ -13,33 +13,60 @@
             </div>
             <span class="price">{{ food.price }}</span>
             <span class="oldprice" v-if="food.oldPrice">￥{{ food.oldPrice }}</span>
+            <div class="addToCart" v-show="food.number === 0 || !food.number" @click="addFirst">加入购物车</div>
+            <div class="cartcontrol-wrapper">
+                <cartcontrol :food="food" />
+            </div>
         </div>
+        <split />
         <div class="info" v-if="food.info">
             <h2 class="info-name">商品介绍</h2>
             <p class="info-desc">
                 {{ food.info }}
             </p>
         </div>
+        <split v-if="food.info" />
+        <comment :rating="commentData" />
     </div>
 </template>
 
 
 <script>
+import split from '@/components/split/split'
+import vue from 'vue'
+import cartcontrol from '@/components/cartcontrol/cartcontrol'
+import comment from '@/components/comments/comments'
+import BScroll from 'better-scroll'
+
+
 export default {
     name:'food',
 	props:{
 		food:{
-            type:[Object,Array]
-        }
-    },
+			type:[Object,Array]
+		}
+	},
     data(){
         return {
-            show:false
+            show:false,
+            showCart:false,
+            commentData:{
+                goodComment:'推荐',
+                badComment:'吐槽'
+            }
         }
+    },
+    components:{
+        split,cartcontrol,comment
     },
     methods:{
         showFood(){
             this.show = true
+        },
+        hideFood(){
+            this.show = false
+        },addFirst(){
+            vue.set(this.food,'number',1)
         }
     }
 }
@@ -58,16 +85,23 @@ export default {
     z-index 101
     margin-bottom 56px
     .avatar
+        position relative
         width 100%
         .avat-img    
             width 100%
+        .icon-arrow_lift
+            position absolute
+            top 12px
+            left 0
+            font-size 14px
+            color white
+            padding 12px
     .food-detail
-        display inline-block
-        vertical-align top
         padding 18px
         font-size 10px
         word-wrap break-word
         color rgb(147,153,159)
+        position relative
         .title
             font-size 14px
             color rgb(7,17,27)
@@ -94,6 +128,28 @@ export default {
             font-weight 700
             line-height 24px
             text-decoration line-through
+        .addToCart
+            position absolute
+            bottom 18px
+            right 18px
+            height 24px
+            line-height 24px
+            font-size 12px
+            color white
+            box-sizing border-box
+            background-color rgb(0,160,220)
+            border-radius 12px
+            padding 0 12px
+            text-align center
+            z-index 10
+        .shopcart-wrapper
+            position absolute
+            right 18px
+            bottom 18px
+        .cartcontrol-wrapper
+            position absolute
+            right 18px
+            bottom 12px
     .info
         padding 18px
         .info-name
