@@ -2,6 +2,7 @@
     <div class="foode"  v-show="show">
         <div class="avatar">
             <img class="avat-img" :src="food.image" >
+            <i class="icon-arrow_lift"></i>
         </div>
         <div class="food-detail">
             <h3 class="title">{{ food.name }}</h3>
