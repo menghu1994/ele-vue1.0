@@ -1,75 +1,79 @@
 <template>
-    <div class="seller">
-        <!-- 商家信息 -->
-        <div class="desc">
-            <div class="title border-1px">
-                <div class="descName">
-                    <h2>{{seller.name}}</h2>
-                    <star :size="36" :score="seller.score"></star>
-                    <span class="ratings">({{ seller.ratingCount }})</span>
-                    <span class="selling">月售{{seller.sellCount}}单</span>
+    <div class="seller"  ref="seller">
+        <div>
+
+            <!-- 商家信息 -->
+            <div class="desc">
+                <div class="title border-1px">
+                    <div class="descName">
+                        <h2>{{seller.name}}</h2>
+                        <star :size="36" :score="seller.score"></star>
+                        <span class="ratings">({{ seller.ratingCount }})</span>
+                        <span class="selling">月售{{seller.sellCount}}单</span>
+                    </div>
+                    <div class="descFav" @click="isFav">
+                        <i class="icon-favorite" :class="{red:fav}"></i>
+                        <p class="fav">{{fav?'已收藏':'收藏'}}</p>
+                    </div>
                 </div>
-                <div class="descFav" @click="isFav">
-                    <i class="icon-favorite" :class="{red:fav}"></i>
-                    <p class="fav">{{fav?'已收藏':'收藏'}}</p>
+                <div class="detail">
+                    <ul>
+                        <li class="minPrice">
+                            <p>起送价</p>
+                            <span>{{seller.minPrice}}</span>
+                        </li>
+                        <li></li>
+                        <li class="deliveryPrice">
+                            <p>商家配送</p>
+                            <span>{{seller.deliveryPrice}}</span>
+                        </li>
+                        <li></li>
+                        <li class="deliveryTime">
+                            <p>平均配送时间</p>
+                            <span class="deliveryTime">{{seller.deliveryTime}}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="detail">
+
+            <hr/>
+
+            <!-- 商家活动 -->
+            <div class="activity">
+                <h2>公告与活动</h2>
+                <p class="bulletin">{{ seller.bulletin }}</p>
                 <ul>
-                    <li class="minPrice">
-                        <p>起送价</p>
-                        <span>{{seller.minPrice}}</span>
-                    </li>
-                    <li></li>
-                    <li class="deliveryPrice">
-                        <p>商家配送</p>
-                        <span>{{seller.deliveryPrice}}</span>
-                    </li>
-                    <li></li>
-                    <li class="deliveryTime">
-                        <p>平均配送时间</p>
-                        <span class="deliveryTime">{{seller.deliveryTime}}</span>
+                    <li v-for="item in seller.supports" class="disc">
+                        <i class="icon" :class="classMap[item.type]"></i>
+                        <span class="description">{{item.description}}</span>
                     </li>
                 </ul>
             </div>
-        </div>
 
-        <hr/>
+            <hr/>
 
-        <!-- 商家活动 -->
-        <div class="activity">
-            <h2>公告与活动</h2>
-            <p class="bulletin">{{ seller.bulletin }}</p>
-            <ul>
-                <li v-for="item in seller.supports" class="disc">
-                    <i class="icon" :class="classMap[item.type]"></i>
-                    <span class="description">{{item.description}}</span>
-                </li>
-            </ul>
-        </div>
+            <!-- 商家实景 -->
+            <div class="pics">
+                <h2>商家实景</h2>
+                <ul class="pics-content">
+                    <li v-for="item in seller.pics" class="pic-item">
+                        <img :src="item">
+                    </li>
+                </ul>
+            </div>
 
-        <hr/>
+            <hr/>
 
-        <!-- 商家实景 -->
-        <div class="pics">
-            <h2>商家实景</h2>
-            <ul class="pics-content">
-                <li v-for="item in seller.pics" class="pic-item">
-                    <img :src="item">
-                </li>
-            </ul>
-        </div>
+            <!-- 商家信息 -->
+            <div class="detail">
+                <h2>商家信息</h2>
+                <ul>
+                    <li v-for="item in seller.infos" class="detail-infos">
+                        <p>{{item}}</p>
+                    </li>
+                </ul>
+            </div>
 
-        <hr/>
-
-        <!-- 商家信息 -->
-        <div class="detail">
-            <h2>商家信息</h2>
-            <ul>
-                <li v-for="item in seller.infos" class="detail-infos">
-                    <p>{{item}}</p>
-                </li>
-            </ul>
         </div>
     </div>
 </template>
@@ -77,12 +81,18 @@
 
 <script>
 import star from '@/components/star/star'
+import BScroll from 'better-scroll'
 
 export default {
-	name:'shopcart',
+    name:'shopcart',
+    props:{
+        seller:{
+            type:Object,
+            default:{}
+        }
+    },
 	data(){
 		return{
-            seller:[],
             fav:true,
             classMap:['decrease','discount','guarantee','invoice','special']
 		}
@@ -91,11 +101,11 @@ export default {
         star
     },
     created(){
-        this.axios.get('/api/seller').then( (resp) => {
-            if(resp.data.errno === 0){
-                this.seller = resp.data.data
-            }
-        })
+    },
+    mounted(){
+        this.$nextTick( () => {
+            this.sellerScroll = new BScroll(this.$refs.seller,{movable: true,click:true})
+        } )
     },
     methods:{
         isFav(){

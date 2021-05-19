@@ -1,32 +1,34 @@
 <template>
-    <div class="foode"  v-show="show">
-        <div class="avatar">
-            <img class="avat-img" :src="food.image" >
-            <i class="icon-arrow_lift" @click="hideFood"></i>
-        </div>
-        <div class="food-detail">
-            <h3 class="title">{{ food.name }}</h3>
-            <p class="description">{{ food.description }}</p>
-            <div>
-                <span class="count">月售{{food.sellCount}}份</span>
-                <span class="rating">好评率{{ food.rating }}%</span>
+    <div class="foode" v-show="show" ref="foode">
+        <div>
+            <div class="avatar">
+                <img class="avat-img" :src="food.image" >
+                <i class="icon-arrow_lift" @click="hideFood"></i>
             </div>
-            <span class="price">{{ food.price }}</span>
-            <span class="oldprice" v-if="food.oldPrice">￥{{ food.oldPrice }}</span>
-            <div class="addToCart" v-show="food.number === 0 || !food.number" @click="addFirst">加入购物车</div>
-            <div class="cartcontrol-wrapper">
-                <cartcontrol :food="food" />
+            <div class="food-detail">
+                <h3 class="title">{{ food.name }}</h3>
+                <p class="description">{{ food.description }}</p>
+                <div>
+                    <span class="count">月售{{food.sellCount}}份</span>
+                    <span class="rating">好评率{{ food.rating }}%</span>
+                </div>
+                <span class="price">{{ food.price }}</span>
+                <span class="oldprice" v-if="food.oldPrice">￥{{ food.oldPrice }}</span>
+                <div class="addToCart" v-show="food.number === 0 || !food.number" @click="addFirst">加入购物车</div>
+                <div class="cartcontrol-wrapper">
+                    <cartcontrol :food="food" />
+                </div>
             </div>
+            <split />
+            <div class="info" v-if="food.info">
+                <h2 class="info-name">商品介绍</h2>
+                <p class="info-desc">
+                    {{ food.info }}
+                </p>
+            </div>
+            <split v-if="food.info" />
+            <comment :rating="commentData" />
         </div>
-        <split />
-        <div class="info" v-if="food.info">
-            <h2 class="info-name">商品介绍</h2>
-            <p class="info-desc">
-                {{ food.info }}
-            </p>
-        </div>
-        <split v-if="food.info" />
-        <comment :rating="commentData" />
     </div>
 </template>
 
@@ -61,11 +63,17 @@ export default {
     },
     methods:{
         showFood(){
-            this.show = true
+            this.show = true;
+            this.$nextTick( () => {
+                if(!this.foodScroll){
+                this.foodScroll = new BScroll(this.$refs.foode,{movable: true,click:true});
+                }
+            })
         },
         hideFood(){
             this.show = false
-        },addFirst(){
+        },
+        addFirst(){
             vue.set(this.food,'number',1)
         }
     }
@@ -79,11 +87,13 @@ export default {
     position fixed
     top 0
     left 0
+    bottom 48px
     background white
     width 100%
     height 100%
     z-index 101
     margin-bottom 56px
+    overflow hidden
     .avatar
         position relative
         width 100%

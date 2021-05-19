@@ -3,17 +3,14 @@
 			<div class="comment-title border-1px">
 				<h2 class="comment-name">商品评价</h2>
 				<div class="comment-catalog border-1px">
-					<div class="total-comment">
-						<span>全部</span>
-						<span>{{}}</span>
+					<div class="block total-comment">
+						<span>全部<span class="count">44</span></span>
 					</div>
-					<div class="satisfied">
-						<span>{{rating.goodComment}}</span>
-						<span>{{}}</span>
+					<div class="block satisfied">
+						<span>{{rating.goodComment}}<span class="count">24</span></span>
 					</div>
-					<div class="dissatisfied">
-						<span>{{rating.badComment}}</span>
-						<span>{{}}</span>
+					<div class="block dissatisfied">
+						<span>{{rating.badComment}}<span class="count">20</span></span>
 					</div>
 				</div>
 				<div class="comment-select">
@@ -62,31 +59,29 @@ export default {
 			color #07111b
 			margin-bottom 4px
 		.comment-catalog
-			overflow auto
-			// float left
 			padding-bottom 18px
 			margin-top 12px
 			border-1px(rgba(7,17,27,0.1))
-			.total-comment
-				float left
+			.block
+				display inline-block
 				padding 8px 12px
 				border-radius 2px
-				background-color rgb(0,160,220)
-				margin-right 8px
-				color white
-			.satisfied
-				float left
-				padding 8px 12px
-				border-radius 2px
-				background-color #ccecf8
-				margin-right 8px
 				color rgb(77,85,93)
-			.dissatisfied
-				float left
-				padding 8px 12px
-				border-radius 2px
-				background-color rgba(77,85,93,0.2)
-				color rgb(77,85,93)
+				margin-right 8px
+				font-size 12px
+				&.total-comment
+					background-color rgb(0,160,220)
+					color white
+				&.satisfied
+					background-color rgba(0,160,220,0.2)
+					&:active
+						background-color rgb(0,160,220)
+				&.dissatisfied
+					background-color rgba(77,85,93,0.2)
+					&:active
+						background-color rgb(77,85,93)
+				.count
+					font-size 8px
 		.comment-select
 			margin-top 12px
 			padding-bottom 12px
