@@ -1,5 +1,5 @@
 # ele-vue2.52
-> vue2.52 还原饿了么app
+> vue2.52 重构还原饿了么app
 
 ## Build Setup
 
