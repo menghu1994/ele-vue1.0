@@ -1,57 +1,59 @@
 <template>
-    <div class="ratings">
-        <div class="ratings-detail">
-            <div class="detail-left">
-                <h1 class="score">{{ seller.score }}</h1>
-                <p class="compScore">综合评分</p>
-                <p class="rankRate">高于周边商家{{seller.rankRate}}%</p>
-            </div>
-            <div class="silde"></div>
-            <div class="detail-right">
-                <div class="score-wrapper">
-                    <span class="service-score">服务态度</span>
-                    <div class="star-wrap">
-                     <star :size="36" :score="seller.serviceScore" />
+    <div class="ratings" ref="ratings">
+        <div>
+            <div class="ratings-detail">
+                <div class="detail-left">
+                    <h1 class="score">{{ seller.score }}</h1>
+                    <p class="compScore">综合评分</p>
+                    <p class="rankRate">高于周边商家{{seller.rankRate}}%</p>
+                </div>
+                <div class="silde"></div>
+                <div class="detail-right">
+                    <div class="score-wrapper">
+                        <span class="service-score">服务态度</span>
+                        <div class="star-wrap">
+                        <star :size="36" :score="seller.serviceScore" />
+                        </div>
+                        <span class="score-detail">{{ seller.serviceScore }}</span>
                     </div>
-                    <span class="score-detail">{{ seller.serviceScore }}</span>
-                </div>
-                <div class="score-wrapper">
-                    <span class="service-score">食物评分</span>
-                    <div class="star-wrap">
-                     <star :size="36" :score="seller.foodScore" />
+                    <div class="score-wrapper">
+                        <span class="service-score">食物评分</span>
+                        <div class="star-wrap">
+                        <star :size="36" :score="seller.foodScore" />
+                        </div>
+                        <span class="score-detail">{{ seller.foodScore }}</span>
                     </div>
-                    <span class="score-detail">{{ seller.foodScore }}</span>
-                </div>
-                <div class="score-wrapper">
-                    <span class="service-score">送达时间</span>
-                    <span class="delivery-time">{{ seller.deliveryTime }}分钟</span>
+                    <div class="score-wrapper">
+                        <span class="service-score">送达时间</span>
+                        <span class="delivery-time">{{ seller.deliveryTime }}分钟</span>
+                    </div>
                 </div>
             </div>
+
+            <split />
+
+            <comment :rating="commentData" />
+
+            <ul class="rat-content">
+                <li v-for="rat in ratings" class="rat-list border-1px">
+                    <i class="avatar">
+                        <img :src="rat.avatar" />
+                    </i>
+                    <div class="comment">
+                        <h3 class="username">{{ rat.username }}</h3>
+                        <div class="star-wrapper">
+                            <star :score="rat.score" :size="24" />
+                        </div>
+                        <span v-show="rat.deliveryTime" class="delivery-time">{{ rat.deliveryTime }}分钟送达</span>
+                        <p class="text" v-show="rat.text">{{ rat.text }}</p>
+                        <div v-show="rat.recommend.length > 0" class="access">
+                            <i :class="rat.rateType == 1 ? 'icon-thumb_down' :'icon-thumb_up'"></i>
+                            <span v-for="item in rat.recommend" class="access-food">{{ item }}</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
-
-        <split />
-
-        <comment :rating="commentData" />
-
-        <ul class="rat-content">
-            <li v-for="rat in ratings" class="rat-list border-1px">
-                <i class="avatar">
-                    <img :src="rat.avatar" />
-                </i>
-                <div class="comment">
-                    <h3 class="username">{{ rat.username }}</h3>
-                    <div class="star-wrapper">
-                        <star :score="rat.score" :size="24" />
-                    </div>
-                    <span v-show="rat.deliveryTime" class="delivery-time">{{ rat.deliveryTime }}分钟送达</span>
-                    <p class="text" v-show="rat.text">{{ rat.text }}</p>
-                    <div v-show="rat.recommend.length > 0" class="access">
-                        <i :class="rat.rateType == 1 ? 'icon-thumb_down' :'icon-thumb_up'"></i>
-                        <span v-for="item in rat.recommend" class="access-food">{{ item }}</span>
-                    </div>
-                </div>
-            </li>
-        </ul>
     </div>
 </template>
 
@@ -60,6 +62,7 @@
 import comment from '@/components/comments/comments'
 import star from '@/components/star/star'
 import split from '@/components/split/split'
+import BScroll from 'better-scroll'
 
 export default {
     name:'ratings',
@@ -96,6 +99,9 @@ export default {
         this.axios.get('/api/ratings').then( (response) => {
             if(response.data.errno == 0){
                 this.ratings = response.data.data
+                this.$nextTick( () => {
+                    new BScroll(this.$refs.ratings,{movable: true,click:true})
+                })
             }
         });
     },

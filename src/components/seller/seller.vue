@@ -1,5 +1,5 @@
 <template>
-    <div class="seller"  ref="seller">
+    <div class="seller"  ref="sellers">
         <div>
 
             <!-- 商家信息 -->
@@ -101,15 +101,21 @@ export default {
         star
     },
     created(){
+        this.$nextTick( () => {
+            this.scroll
+        } )
     },
     mounted(){
-        this.$nextTick( () => {
-            this.sellerScroll = new BScroll(this.$refs.seller,{movable: true,click:true})
-        } )
+
     },
     methods:{
         isFav(){
             this.fav = !this.fav
+        },
+        _initScroll(){
+            if(!this.scroll){
+                this.scroll = new BScroll(this.$refs.sellers,{movable: true,click:true})
+            }
         }
     }
 }

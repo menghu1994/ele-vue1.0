@@ -185,3 +185,8 @@ new Vue({
 
 ### 2021.5.13
 1. Element.getBoundingClientRect() 返回元素的大小及其相对于视口的位置
+
+### 2021.5.20
+ - shopcart 组件中cart-left 点击出现菜单
+ - satings/seller 滚动, seller中的图片横向滚动
+ - satings显示有内容评价
