@@ -6,7 +6,9 @@
       <div class="tap-item"><router-link to="/ratings">评价</router-link></div>
       <div class="tap-item"><router-link to="/seller">商家</router-link></div>
     </div>
-    <router-view :seller="this.seller"></router-view>
+    <keep-alive>
+      <router-view :seller="this.seller"></router-view>
+    </keep-alive>
   </div>
 </template>
 
