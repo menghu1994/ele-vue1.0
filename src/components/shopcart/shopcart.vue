@@ -1,7 +1,7 @@
 <template>
 	<div class="shopcart">
 		<div class="content">
-			<div class="cart-left" @click="fold=!fold">
+			<div class="cart-left" @click="toggleList">
 				<div class="cart" :class="{'highLight': totalCount>0}">
 					<i class="icon-shopping_cart"></i>
 					<div class="number" v-show="totalCount>0">{{ totalCount }}</div>
@@ -16,7 +16,7 @@
 			<div class="cot" v-show="totalPrice > 0"></div>
 		</transition>
 		<!-- 购物车详情页 -->
-		<div class="cart-detail" v-show="!fold">
+		<div class="cart-detail" v-show="showCart">
 			<div class="detail-header border-1px">
 				<h2 class="title">购物车</h2>
 				<span class="empty" @click="clearCart">清空</span>
@@ -104,12 +104,12 @@ export default {
 			}
 		},
 		showCart(){
-			if(this.selectFoods.length > 0){
+			if(!this.totalPrice){
 				this.fold = true
-				return this.fold
+				return false
 			}
-			this.fold = false
-			return this.fold
+			let show = !this.fold
+			return show
 		}
 	},
 	methods:{
@@ -120,6 +120,11 @@ export default {
 			// console.log(this.selectFoods)
 			this.selectFoods.length = 0
 			this.fold = true
+		},
+		toggleList(){
+			if(this.totalPrice>-0){
+				this.fold = !this.fold
+			}
 		}
 	}
 }
