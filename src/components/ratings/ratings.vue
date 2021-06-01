@@ -115,10 +115,14 @@ export default {
 <style lang="stylus" scoped>
 @import "~common/stylus/base.styl"
 
-.ratings-detail
-    display flex
-    justify-content space-around
-    padding 18px 0
+.ratings
+    overflow hidden
+    position absolute 
+    top 174px
+    .ratings-detail
+        display flex
+        justify-content space-around
+        padding 18px 0
     .detail-left
         display flex
         flex-direction column
@@ -167,7 +171,7 @@ export default {
             .delivery-time
                 margin-left 12px
                 color rgb(147,153,159)
-.rat-content
+    .rat-content
     .rat-list
         margin 0 18px
         padding 18px 0

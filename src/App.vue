@@ -6,9 +6,11 @@
       <div class="tap-item"><router-link to="/ratings">评价</router-link></div>
       <div class="tap-item"><router-link to="/seller">商家</router-link></div>
     </div>
-    <keep-alive>
-      <router-view :seller="this.seller"></router-view>
-    </keep-alive>
+      <transition :name="names">
+        <keep-alive>
+          <router-view :seller="this.seller"></router-view>
+        </keep-alive>
+      </transition>
   </div>
 </template>
 
@@ -18,7 +20,8 @@ export default {
   name: 'App',
   data(){
     return {
-      seller:[]
+      seller:[],
+      names:""
     }
   },
   components:{
@@ -30,13 +33,45 @@ export default {
        this.seller = Response.data.data;
       }
     })
+  },
+  watch:{
+    $route(to,from){
+      if(to.meta.index > from.meta.index){
+        this.names="right"
+      }else{
+        this.names="left"
+      }
+    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
 @import "./common/stylus/base.styl"
-  .tap
+
+.right-enter-active,.right-leave-active
+  transition all .4s ease
+.right-enter
+  transform: translateX(100%)
+.right-enter-to 
+  transform: translateX(0)
+.right-leave
+  transform: translateX(0)
+.right-leave-to
+  transform: translateX(-100%)
+
+.left-enter-active,.left-leave-active
+  transition all .4s ease
+.left-enter
+  transform: translateX(-100%)
+.left-enter-to 
+  transform: translateX(0)
+.left-leave
+  transform: translateX(0)
+.left-leave-to
+  transform: translateX(100%)
+
+.tap
     display flex
     width 100%
     font-size 14px

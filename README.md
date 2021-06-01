@@ -193,3 +193,22 @@ new Vue({
  - satings显示有内容评价
 =======
 >>>>>>> 8e39486e28e24e256aba14627761d9496aa14e0c
+
+### 2021.6.1
+Q: 给商品组件添加切换动画，内部的购物车组件样式有问题
+
+1. 实现导航组件左右切换动画顺序
+ - 在路由中为相应组件的路由添加`meta：{index:0}`,通过比较index确认动画的顺序
+ - 动态设置`route-view`的name属性,监听路由变化,如果to路由大于from路由,则name="right",否则name="left"
+
+ ```js
+  watch:{
+      $route(to,from){
+        if(to.meta.index > from.meta.index){
+          this.names="right"
+        }else{
+          this.names="left"
+        }
+      }
+    }
+ ```

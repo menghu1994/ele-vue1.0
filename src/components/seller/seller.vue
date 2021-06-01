@@ -88,13 +88,15 @@ export default {
     props:{
         seller:{
             type:Object,
-            default:{}
+            default(){
+                return{}
+            }
         }
     },
 	data(){
 		return{
             fav:true,
-            classMap:['decrease','discount','guarantee','invoice','special']
+            classMap:['decrease','discount','guarantee','invoice','special'],
 		}
     },
     components:{
@@ -104,6 +106,7 @@ export default {
         this.$nextTick( () => {
             this.scroll
         } )
+
     },
     mounted(){
 
@@ -133,6 +136,10 @@ h2
    margin-bottom 8px
 .seller
     font-size 12px
+    width 100%
+    overflow hidden
+    position absolute 
+    top 174px
     .desc
         padding 18px
         .title

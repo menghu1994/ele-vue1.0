@@ -8,15 +8,18 @@ export default new Router({
     {
       path: '/goods',
       name: 'goods',
-      component: () => import('@/components/goods/goods')
+      component: () => import('@/components/goods/goods'),
+      meta:{index:0}
     }, {
       path: '/seller',
       name: 'seller',
-      component:  () => import('@/components/seller/seller')
+      component:  () => import('@/components/seller/seller'),
+      meta:{index:2}
     }, {
       path: '/ratings',
       name: 'ratings',
-      component: () => import('@/components/ratings/ratings')
+      component: () => import('@/components/ratings/ratings'),
+      meta:{index:1}
     }, {
       path: '*',
       redirect: '/goods'  //重定向,初始加载

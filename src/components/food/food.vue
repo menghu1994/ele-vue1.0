@@ -102,10 +102,14 @@ export default {
         .icon-arrow_lift
             position absolute
             top 12px
-            left 0
+            left 10px
             font-size 14px
             color white
             padding 12px
+            background-color rgba(0,0,0,0.3)
+            border-radius 50%
+            text-align center
+            box-shadow 0 0 3px rgba(0,0,0,0.5)
     .food-detail
         padding 18px
         font-size 10px

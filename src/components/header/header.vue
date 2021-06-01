@@ -69,6 +69,7 @@
 
 <script>
 import star from '@/components/star/star'
+// import { set } from 'vue/types/umd'
 
 export default {
 	name:'header',
@@ -102,14 +103,13 @@ export default {
 // @import "../../common/stylus/base.styl"
 @import "~common/stylus/base.styl"
 
-.fade-enter-active 
-  transition all .4s ease
-.fade-enter
-  transform translateY(-100%)
-  opacity 0;
-.fade-leave-to
-	transform translateY(0)
-	opacity 1
+.fade-enter-active, .fade-leave-active {
+  transition: all .5s cubic-bezier(.21,.48,.7,.92)
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+	transform translateY(-100%)
+}
 
 .header
 	background rgba(7,17,27,0.5)
