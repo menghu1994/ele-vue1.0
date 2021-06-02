@@ -1,4 +1,5 @@
 <template>
+	<!-- 评价组件 -->
     <div class="comment">
 			<div class="comment-title border-1px">
 				<h2 class="comment-name">商品评价</h2>
@@ -6,15 +7,15 @@
 					<div class="block total-comment">
 						<span>全部<span class="count">44</span></span>
 					</div>
-					<div class="block satisfied">
+					<div class="block satisfied" @click="showPositive">
 						<span>{{rating.goodComment}}<span class="count">24</span></span>
 					</div>
-					<div class="block dissatisfied">
+					<div class="block dissatisfied" @click="showNegative">
 						<span>{{rating.badComment}}<span class="count">20</span></span>
 					</div>
 				</div>
-				<div class="comment-select">
-					<i class="icon-check_circle"></i>
+				<div class="comment-select" @click="showNonempty">
+					<i :class="[rating.onlyComment ? 'has-content' : 'non-content', 'icon-check_circle']"></i>
 					<span class="has-content">只看有内容的评价</span>
 				</div>
 			</div>
@@ -39,6 +40,17 @@ export default {
 					this.ratings = resp.data.ratings
 				}
 			})
+		},
+		methods:{
+			showPositive(){
+
+			},
+			showNegative(){
+
+			},
+			showNonempty(){
+
+			}
 		}
 }
 </script>
@@ -92,6 +104,10 @@ export default {
 				line-height 24px
 				display inline-block
 				vertical-align top
+				&.has-content
+					color rgb(0,160,220)
+				&.non-content
+					color rgb(147,153,159)
 			.has-content
 				vertical-align top
 </style>

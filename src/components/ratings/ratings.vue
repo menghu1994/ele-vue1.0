@@ -1,6 +1,6 @@
 <template>
     <div class="ratings" ref="ratings">
-        <div>
+        <div class="content">
             <div class="ratings-detail">
                 <div class="detail-left">
                     <h1 class="score">{{ seller.score }}</h1>
@@ -69,7 +69,9 @@ export default {
     props:{
         seller:{
             type:Object,
-            default:{}
+            default(){
+                return {}
+            }
         }
     },
     components:{
@@ -79,34 +81,23 @@ export default {
         return {
             commentData:{
                 goodComment:'满意',
-                badComment:'不满意'
+                badComment:'不满意',
+                onlyComment:false
             },
             ratings:{}
         }
     },
-	computed:{
-		// Isatis(){
-		// 	let totalSatis = 0;
-		// 	for(let i=0;i<this.rating.length;i++){
-		// 		if(this.ratings.score < 4){
-		// 			totalSatis += this.ratings.score
-		// 		}
-		// 	}
-		// 	return totalSatis
-		// }
-	},
     created(){
         this.axios.get('/api/ratings').then( (response) => {
             if(response.data.errno == 0){
                 this.ratings = response.data.data
                 this.$nextTick( () => {
-                    new BScroll(this.$refs.ratings,{movable: true,click:true})
+                    if(!this.scroll){
+                        this.scroll = new BScroll(this.$refs.ratings,{click:true})
+                    }
                 })
             }
         });
-    },
-    methods:{
-
     }
 }
 </script>
@@ -119,6 +110,8 @@ export default {
     overflow hidden
     position absolute 
     top 174px
+    left 0
+    width 100%
     .ratings-detail
         display flex
         justify-content space-around

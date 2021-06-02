@@ -28,6 +28,25 @@
             </div>
             <split v-if="food.info" />
             <comment :rating="commentData" />
+            <!-- 评价信息 -->
+            <ul class="rat-content">
+                <li v-for="rat in food.ratings" class="rat-list border-1px">
+                    <div class="rat-head">
+                        <p class="rat-time">{{rat.rateTime | formatDate}}</p>
+                        <div class="rat-cust">
+                            <span class="rat-user">{{rat.username}}</span>
+                            <i class="avatar">
+                                <img :src="rat.avatar" />
+                            </i>
+                        </div>
+                    </div>
+                    <div class="access" v-show="rat.text">
+                        <i :class="rat.rateType == 1 ? 'icon-thumb_down' :'icon-thumb_up'"></i>
+                        <span class="access-food">{{ rat.text }}</span>
+                    </div>
+                    
+                </li>
+            </ul>
         </div>
     </div>
 </template>
@@ -90,9 +109,8 @@ export default {
     bottom 48px
     background white
     width 100%
-    height 100%
+    // height calc(100%-48px)
     z-index 101
-    margin-bottom 56px
     overflow hidden
     .avatar
         position relative
@@ -109,7 +127,7 @@ export default {
             background-color rgba(0,0,0,0.3)
             border-radius 50%
             text-align center
-            box-shadow 0 0 3px rgba(0,0,0,0.5)
+            box-shadow 0 0 3px rgba(255,255,255,0.5)
     .food-detail
         padding 18px
         font-size 10px
@@ -177,4 +195,45 @@ export default {
             color rgb(77,85,93)
             line-height 24px
             padding 0 8px
+    .rat-content
+        .rat-list
+            margin 0 18px 
+            padding 16px 0
+            border-1px(rgba(7,17,27,0.1))
+            font-size 10px
+            color rgb(147,153,159)
+            line-height 12px
+            .rat-head
+                display flex
+                justify-content space-between
+                .rat-time
+                    font-size 10px
+                .rat-cust
+                    font-size 0
+                    .rat-user
+                        display inline-block
+                        vertical-align top
+                        font-size 10px
+                        margin-right 6px
+                    .avatar
+                        display inline-block
+                        vertical-align top
+                        width 12px
+                        height 12px 
+                        img
+                            width 12px
+                            height 12px 
+                            border-radius 50%
+            .access
+                margin-top 6px
+                .icon-thumb_down
+                    font-size 12px
+                    color rgb(147,153,159)
+                .icon-thumb_up
+                    font-size 12px
+                    color rgb(0,160,220)
+                .access-food
+                    margin-left 4px
+                    font-size 12px
+                    color rgb(7,17,27)
 </style>

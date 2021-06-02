@@ -1,6 +1,6 @@
 <template>
     <div class="seller"  ref="sellers">
-        <div>
+        <div class="content">
 
             <!-- 商家信息 -->
             <div class="desc">
@@ -104,7 +104,7 @@ export default {
     },
     created(){
         this.$nextTick( () => {
-            this.scroll
+            this._initScroll()
         } )
 
     },
@@ -140,6 +140,7 @@ h2
     overflow hidden
     position absolute 
     top 174px
+    left
     .desc
         padding 18px
         .title
