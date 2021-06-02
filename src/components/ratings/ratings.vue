@@ -107,11 +107,12 @@ export default {
 @import "~common/stylus/base.styl"
 
 .ratings
-    overflow hidden
     position absolute 
     top 174px
     left 0
+    bottom 0
     width 100%
+    overflow hidden
     .ratings-detail
         display flex
         justify-content space-around

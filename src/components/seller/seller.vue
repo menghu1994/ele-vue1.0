@@ -119,7 +119,7 @@ export default {
             if(!this.scroll){
                 this.scroll = new BScroll(this.$refs.sellers,{movable: true,click:true})
             }
-        }
+        }  
     }
 }
 </script>
@@ -140,7 +140,8 @@ h2
     overflow hidden
     position absolute 
     top 174px
-    left
+    left 0
+    bottom 0
     .desc
         padding 18px
         .title

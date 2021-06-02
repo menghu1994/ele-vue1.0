@@ -109,7 +109,6 @@ export default {
     bottom 48px
     background white
     width 100%
-    // height calc(100%-48px)
     z-index 101
     overflow hidden
     .avatar
